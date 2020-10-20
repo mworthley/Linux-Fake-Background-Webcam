@@ -138,7 +138,7 @@ The only downside is that the  ability to change background and foreground image
 has some limitations.
 
 ## Usage
-Assuming you are not using the Docker version, please also make sure that your
+Assuming you are not using the Docker version, overriding the ports settings, please also make sure that your
 TCP port ``127.0.0.1:9000`` is free, as we will be using it.
 
 You can change the port by setting the environment variable PORT. If you set a path, it will use a UNIX Socket instead.

@@ -2,18 +2,16 @@ version: '3'
 services:
     bodypix:
         image: bodypix
-        restart: always
         build:
             context: ./bodypix
         networks:
             - fakecam
         read_only: true
         ports:
-            - 9000:9000
+            - ${PORT_BODYPIX}:9000
 
     fakecam:
         image: fakecam
-        restart: always
         build:
             context: ./fakecam
         networks:
