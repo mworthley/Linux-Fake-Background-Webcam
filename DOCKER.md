@@ -11,34 +11,27 @@ Get list of your video devices. An app like `v4l2-ctl` should help:
 v4l2-ctl --list-devices
 ```
 
-Make any changes you need (use nvidia gpu, update images, change video volume mapping)
+Make any changes you need (use nvidia gpu, update images, change video volume mapping) to the newly created `.env` file.
 
-## Docker Compose (CPU)
+## Prerequisite
 
-### Prerequisite
-
-* v4l2loopback
-* Docker
-* docker-compose
-
-### Usage
- - Run and initial build containers: `docker-compose up` (or `docker-compose up -d`)
- - Stop and remove containers: ``docker-compose down``
- - Note: *Ctrl-C* is currently stops the containers instead of changing images
-    - You can instead rebuild with new settings: `docker-compose up -d --build`
-
-## Docker Compose (GPU)
-
-### Prerequisites
+### Docker Compose (CPU)
 
 * v4l2loopback
-* Docker
-* docker-compose
+* Docker & docker-compose
+
+### Docker Compose (GPU)
+
+* v4l2loopback
+* Docker & docker-compose
 * [Nvidia Docker](https://github.com/NVIDIA/nvidia-docker#quickstart
 
 ### Usage
- - Run and initial build containers: `docker-compose -f docker-compose-nvidia.yml up` (or `docker-compose -f docker-compose-nvidia.yml up -d`)
+ - Start it up: `docker-compose up --build` (or `docker-compose up -d --build`)
  - Stop and remove containers: `docker-compose down`
  - Note: *Ctrl-C* is currently stops the containers instead of changing images
-    - You can instead rebuild with new settings: `docker-compose -f docker-compose-nvidia.yml up -d --build`
+    - You can instead rebuild with new settings: `docker-compose up -d --build`
 
+Note: when using the nvidia version add `-f docker-compose-nvidia.yml` to each command e.g.
+    - `docker-compose -f docker-compose-nvidia.yml up -d --build`
+    - `docker-compose -f docker-compose-nvidia.yml down`
