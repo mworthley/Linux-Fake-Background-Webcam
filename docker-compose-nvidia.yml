@@ -24,17 +24,17 @@ services:
         networks:
             - fakecam
         volumes:
-            - ${IMAGE_BACKGROUND}:/src/background.jpg:ro
-            - ${IMAGE_FOREGROUND}:/src/foreground.jpg:ro
-            - ${IMAGE_FOREGROUND_MASK}:/src/foreground-mask.png:ro
+            - ${IMAGE_BACKGROUND}:/src/background-custom:ro
+            - ${IMAGE_FOREGROUND}:/src/foreground-custom:ro
+            - ${IMAGE_FOREGROUND_MASK}:/src/foreground-mask-custom:ro
         devices:
-            # webcam
             - ${VIDEO_INPUT}:/dev/video0
-            # virtual webcam
             - ${VIDEO_OUTPUT}:/dev/video2
         depends_on:
             - bodypix
-        command: ["--bodypix-url", "http://bodypix:9000/", "--scale-factor", "1", '-F', '60', '-W', '1280', '--background-blur', '100']
-
+        command: ["--bodypix-url", "http://bodypix:9000/",
+                  "-b", "background-custom", "-f", "foreground-custom" , "-m", "foreground-mask-custom",
+                  "--webcam-path", "/dev/video0", "--v4l2loopback-path", "/dev/video2",
+                  "--scale-factor", "1"]
 networks:
     fakecam:

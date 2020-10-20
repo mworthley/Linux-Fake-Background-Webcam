@@ -24,13 +24,13 @@ services:
             - ${IMAGE_FOREGROUND}:/src/foreground.jpg:ro
             - ${IMAGE_FOREGROUND_MASK}:/src/foreground-mask.png:ro
         devices:
-            # webcam
             - ${VIDEO_INPUT}:/dev/video0
-            # virtual webcam
             - ${VIDEO_OUTPUT}:/dev/video2
         depends_on:
             - bodypix
-        command: ["--bodypix-url", "http://bodypix:9000/"]
+        command: ["--bodypix-url", "http://bodypix:9000/",
+                  "-b", "background-custom", "-f", "foreground-custom" , "-m", "foreground-mask-custom",
+                  "--webcam-path", "/dev/video0", "--v4l2loopback-path", "/dev/video2"]
 
 networks:
     fakecam:

@@ -11,9 +11,7 @@ RUN apt-get update && \
 FROM node:13-buster-slim
 
 COPY --from=build /src /src
-
 WORKDIR /src
 
 COPY app.js /src/
-
 ENTRYPOINT node /src/app.js
