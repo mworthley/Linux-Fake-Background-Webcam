@@ -1,0 +1,40 @@
+version: '3'
+services:
+    bodypix:
+        image: bodypix
+        restart: always
+        build:
+            context: ./bodypix
+            dockerfile: ${DOCKERFILE_BODYPIX}
+        networks:
+            - fakecam
+        ports:
+            - 9000:9000
+        shm_size: ${SHM_SIZE_BODYPIX}
+        ulimits:
+            memlock: -1
+            stack: 67108864
+        runtime: nvidia
+
+    fakecam:
+        image: fakecam
+        restart: always
+        build:
+            context: ./fakecam
+        networks:
+            - fakecam
+        volumes:
+            - ${IMAGE_BACKGROUND}:/src/background.jpg:ro
+            - ${IMAGE_FOREGROUND}:/src/foreground.jpg:ro
+            - ${IMAGE_FOREGROUND_MASK}:/src/foreground-mask.png:ro
+        devices:
+            # webcam
+            - ${VIDEO_INPUT}:/dev/video0
+            # virtual webcam
+            - ${VIDEO_OUTPUT}:/dev/video2
+        depends_on:
+            - bodypix
+        command: ["--bodypix-url", "http://bodypix:9000/", "--scale-factor", "1", '-F', '60', '-W', '1280', '--background-blur', '100']
+
+networks:
+    fakecam:
