@@ -5,7 +5,7 @@ services:
         restart: always
         build:
             context: ./bodypix
-            dockerfile: ${DOCKERFILE_BODYPIX}
+            dockerfile: ${DOCKERFILE_NVIDIA}
         networks:
             - fakecam
         ports:
